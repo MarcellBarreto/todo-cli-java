@@ -43,4 +43,14 @@ public class GerenciadorTarefas {
         }
         return false;
     }
+
+    public boolean editarDescricao(int id, String novaDescricao) {
+        for (Tarefa tarefa : tarefas) {
+            if (tarefa.getId() == id) {
+                tarefa.setDescricao(novaDescricao);
+                return true;
+            }
+        }
+        return false;
+    }
 }

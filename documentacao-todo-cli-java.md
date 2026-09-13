@@ -18,12 +18,13 @@ Esse é o ponto de partida de uma visão maior (ver seção "Visão de longo pra
 - Remover tarefa
 - Interação via terminal usando `Scanner`
 - Dados mantidos em memória (`ArrayList`), sem persistência
+- Edição de tarefas já criadas
 
 ## Fora de escopo (por enquanto)
 
+- Reabrir a tarefa
 - Persistência em arquivo ou banco de dados
 - Interface web
-- Edição de tarefas já criadas
 - Categorias
 - Data de vencimento
 - Prioridade
@@ -96,4 +97,4 @@ Não ficar mais de 2 dias seguidos sem tocar no projeto — regra criada para ev
 
 ## Visão de longo prazo (pós-MVP)
 
-O projeto final imaginado é algo no estilo Kanban: aplicação web, visão semanal das tarefas, persistência de dados, edição de tarefas, e uma seção separada para itens concluídos. Nada disso entra agora — a prioridade é terminar a v1 em Java puro no terminal antes de expandir o escopo.
+O projeto final imaginado é algo no estilo Kanban: aplicação web, visão semanal das tarefas, persistência de dados, e uma seção separada para itens concluídos. Nada disso entra agora — a prioridade é terminar a v1 em Java puro no terminal antes de expandir o escopo.

@@ -18,6 +18,14 @@ public class Tarefa {
         return descricao;
     }
 
+    public void setDescricao(String novaDescricao) {
+        if (novaDescricao.trim().isEmpty()){
+            throw new IllegalArgumentException("ERRO!!! Digite a nova descrição");
+        }else {
+            this.descricao = novaDescricao;
+        }
+    }
+
     public boolean isConcluida() {
         return concluida;
     }
@@ -25,4 +33,5 @@ public class Tarefa {
     public void concluir(){
         this.concluida = true;
     }
+
 }
