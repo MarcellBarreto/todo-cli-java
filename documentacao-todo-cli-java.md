@@ -48,6 +48,9 @@ Só na classe `Main`. `GerenciadorTarefas` não deve saber que existe um termina
 **Por que `marcarConcluida` e `remover` retornam `boolean`:**
 Preparação para o próximo passo: tratar o caso de um `id` que não existe na lista. O retorno booleano permite que a `Main` decida a mensagem de erro apropriada, sem misturar essa lógica dentro do `GerenciadorTarefas`.
 
+**Por que `setDescricao` e não `editarDescricao`/`alterarDescricao` (Dia 4):**
+`Tarefa` já tem `concluir()`, um método verbo sem prefixo `set`, então `setDescricao` quebra a simetria interna da classe. Ainda assim, optou-se por manter o padrão getter/setter tradicional do Java em vez de um nome estilo verbo, priorizando a convenção da linguagem — reconhecível por qualquer leitor de Java — sobre a consistência interna com `concluir()`. Trade-off aceito conscientemente, não uma inconsistência despercebida.
+
 ## Esqueleto de classes
 
 ```java
@@ -60,11 +63,14 @@ public class Tarefa {
     }
 
     // getters e setters
+
+    public void setDescricao(String novaDescricao) {
+    }
 }
 ```
 
 ```java
-public class GerenciadorTarefas {
+public class GerenciadorTarefas {   
     private List<Tarefa> tarefas;
     private int proximoId;
 
@@ -82,6 +88,9 @@ public class GerenciadorTarefas {
 
     public boolean remover(int id) {
     }
+
+    public boolean editarDescricao(int id, String novaDescricao) {
+    }
 }
 ```
 
@@ -89,7 +98,8 @@ public class GerenciadorTarefas {
 
 - **Dia 1:** Aquecimento com classes, `ArrayList`, for-each e separação de responsabilidade em classe própria. Exercício prático: `PraticaCadastroLivros` (cadastro/busca de livros), testado e versionado no GitHub.
 - **Dia 2:** Prática de `try/catch` com `InputMismatchException` e `IndexOutOfBoundsException`.
-- **Dia 3 (hoje):** Definição formal do escopo da MVP e decisões de design das classes principais.
+- **Dia 3:** Definição formal do escopo da MVP e decisões de design das classes principais.
+- **Dia 4:** Implementação da edição de descrição de tarefa (`setDescricao` na `Tarefa`, `editarDescricao` no `GerenciadorTarefas`, novo case no menu da `Main`), com validação rejeitando descrição vazia/em branco via `IllegalArgumentException`. Escopo do doc atualizado e feature commitada e enviada ao GitHub (`99b07e9`).
 
 ## Regra de disciplina
 

@@ -44,6 +44,16 @@ public class GerenciadorTarefas {
         return false;
     }
 
+    public boolean reabrir(int id) {
+        for (Tarefa tarefa : tarefas) {
+            if (tarefa.getId() == id) {
+                tarefa.reabrir();
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean editarDescricao(int id, String novaDescricao) {
         for (Tarefa tarefa : tarefas) {
             if (tarefa.getId() == id) {

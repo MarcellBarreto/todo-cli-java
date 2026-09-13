@@ -34,4 +34,8 @@ public class Tarefa {
         this.concluida = true;
     }
 
+    public void reabrir(){
+        this.concluida = false;
+    }
+
 }

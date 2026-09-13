@@ -9,7 +9,7 @@ public class Main {
 
 
         GerenciadorTarefas gerenciadorT = new GerenciadorTarefas();
-        while (escolha != 6) {
+        while (escolha != 7) {
             try {
                 System.out.println("\n======= MENU =======");
                 System.out.println("1 - Cadastrar tarefa");
@@ -17,7 +17,8 @@ public class Main {
                 System.out.println("3 - Remover tarefa");
                 System.out.println("4 - Marcar tarefa como concluida");
                 System.out.println("5 - Editar tarefa");
-                System.out.println("6 - Sair");
+                System.out.println("6 - Reabrir tarefa concluida");
+                System.out.println("7 - Sair");
                 System.out.println("====================");
                 escolha = sc.nextInt();
 
@@ -61,12 +62,20 @@ public class Main {
                         }
                         break;
                     case 6:
+                        System.out.println("Digite o ID da tarefa que será reaberta: ");
+                        if (gerenciadorT.reabrir(sc.nextInt())) {
+                            System.out.println("Tarefa reaberta com sucesso!");
+                        } else {
+                            System.out.println("Tarefa não encontrada!");
+                        }
+                        break;
+                    case 7:
                         System.out.println("======= PROGRAMA ENCERRADO =======");
                         break;
 
                     default:
                         System.out.println("ERRO!!!");
-                        System.out.println("DIGITE UMA OPCAO VALIDA (1 A 6).");
+                        System.out.println("DIGITE UMA OPCAO VALIDA (1 A 7).");
                         break;
                 }
             } catch (InputMismatchException e) {
