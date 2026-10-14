@@ -4,12 +4,14 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
+        final int SAIR = 7;
+        final int TOTAL_OPCOES = 7;
+
         System.out.println("Bem vindo ao To-Do list!!!");
         int escolha = 0;
 
-
         GerenciadorTarefas gerenciadorT = new GerenciadorTarefas();
-        while (escolha != 7) {
+        while (escolha != SAIR) {
             try {
                 System.out.println("\n======= MENU =======");
                 System.out.println("1 - Cadastrar tarefa");
@@ -18,7 +20,7 @@ public class Main {
                 System.out.println("4 - Marcar tarefa como concluida");
                 System.out.println("5 - Editar tarefa");
                 System.out.println("6 - Reabrir tarefa concluida");
-                System.out.println("7 - Sair");
+                System.out.println(SAIR + " - Sair");
                 System.out.println("====================");
                 escolha = sc.nextInt();
 
@@ -69,13 +71,13 @@ public class Main {
                             System.out.println("Tarefa não encontrada!");
                         }
                         break;
-                    case 7:
+                    case SAIR:
                         System.out.println("======= PROGRAMA ENCERRADO =======");
                         break;
 
                     default:
                         System.out.println("ERRO!!!");
-                        System.out.println("DIGITE UMA OPCAO VALIDA (1 A 7).");
+                        System.out.println("DIGITE UMA OPCAO VALIDA (1 A " + TOTAL_OPCOES + ").");
                         break;
                 }
             } catch (InputMismatchException e) {
