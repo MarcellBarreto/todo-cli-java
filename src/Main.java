@@ -4,8 +4,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int SAIR = 7;
-        final int TOTAL_OPCOES = 7;
+        final int SAIR = 8;
+        final int TOTAL_OPCOES = 8;
 
         System.out.println("Bem vindo ao To-Do list!!!");
         int escolha = 0;
@@ -19,7 +19,8 @@ public class Main {
                 System.out.println("3 - Remover tarefa");
                 System.out.println("4 - Marcar tarefa como concluida");
                 System.out.println("5 - Editar tarefa");
-                System.out.println("6 - Reabrir tarefa concluida");
+                System.out.println("6 - Editar prioridade da tarefa");
+                System.out.println("7 - Reabrir tarefa concluida");
                 System.out.println(SAIR + " - Sair");
                 System.out.println("====================");
                 escolha = sc.nextInt();
@@ -63,7 +64,13 @@ public class Main {
                             System.out.println("Tarefa não encontrada!");
                         }
                         break;
-                    case 6:
+                    case 6:{
+                        System.out.println("Digite o ID da tarefa que deseja editar: ");
+                        int idTarefa = sc.nextInt();
+
+                        break;
+                    }
+                    case 7:
                         System.out.println("Digite o ID da tarefa que será reaberta: ");
                         if (gerenciadorT.reabrir(sc.nextInt())) {
                             System.out.println("Tarefa reaberta com sucesso!");
