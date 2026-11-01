@@ -19,23 +19,24 @@ Esse é o ponto de partida de uma visão maior (ver seção "Visão de longo pra
 - Interação via terminal usando `Scanner`
 - Dados mantidos em memória (`ArrayList`), sem persistência
 - Edição de tarefas já criadas
+- Reabrir tarefa concluída
+- Prioridade da tarefa (BAIXA, MEDIA, ALTA), com listagem ordenada por prioridade
 
 ## Fora de escopo (por enquanto)
 
-- Reabrir a tarefa
 - Persistência em arquivo ou banco de dados
 - Interface web
 - Categorias
 - Data de vencimento
-- Prioridade
 - Visão semanal / calendário
 - Sessão separada para tarefas concluídas
 
 ## Estrutura de classes
 
-- **`Tarefa`** — atributos: `id` (int), `descricao` (String), `concluida` (boolean)
-- **`GerenciadorTarefas`** — encapsula a `ArrayList<Tarefa>` e os métodos de adicionar, remover, marcar como concluída e listar
-- **`Main`** — apenas o loop de menu e leitura de input via `Scanner`
+- **`Tarefa`** — atributos: `id` (int), `descricao` (String), `concluida` (boolean), `prioridade` (`Prioridade`)
+- **`Prioridade`** — `enum` com `BAIXA`, `MEDIA` e `ALTA`, em arquivo próprio, pois `Main` e `Tarefa` o utilizam
+- **`GerenciadorTarefas`** — encapsula a `ArrayList<Tarefa>` e os métodos de adicionar, remover, marcar como concluída, reabrir, editar descrição, editar prioridade e listar
+- **`Main`** — apenas o loop de menu, a leitura de input via `Scanner` e a conversão do número digitado para `Prioridade`
 
 ## Decisões de design (Dia 3)
 
@@ -51,13 +52,35 @@ Preparação para o próximo passo: tratar o caso de um `id` que não existe na 
 **Por que `setDescricao` e não `editarDescricao`/`alterarDescricao` (Dia 4):**
 `Tarefa` já tem `concluir()`, um método verbo sem prefixo `set`, então `setDescricao` quebra a simetria interna da classe. Ainda assim, optou-se por manter o padrão getter/setter tradicional do Java em vez de um nome estilo verbo, priorizando a convenção da linguagem — reconhecível por qualquer leitor de Java — sobre a consistência interna com `concluir()`. Trade-off aceito conscientemente, não uma inconsistência despercebida.
 
+**Por que a prioridade é um `enum` (pós-MVP):**
+Os valores são fixos e conhecidos, então o compilador rejeita qualquer valor fora de `BAIXA`, `MEDIA` e `ALTA`. Por isso `setPrioridade` não precisa de validação, diferente de `setDescricao`.
+
+**Por que `setPrioridade` (pós-MVP):**
+Pela mesma razão de `setDescricao`: o método só atribui um valor ao campo.
+
+**Por que a prioridade nasce `MEDIA`:**
+Simplifica o cadastro, que não pede prioridade. Quem quiser outra prioridade usa a opção de edição.
+
+**Como o submenu lê a prioridade (pós-MVP):**
+A `Main` pede um número de 1 a 3 e converte para o `enum` com `switch`. Um laço repete a pergunta até receber um valor válido, e o `try/catch` fica dentro do laço, para que uma entrada não numérica não faça o usuário voltar ao menu principal. O `GerenciadorTarefas` recebe só o `Prioridade` já convertido.
+
+**Por que `listar()` ordena uma cópia (pós-MVP):**
+A ordem de cadastro fica preservada na lista guardada, para uso futuro (por exemplo, um filtro por data de criação). A ordenação por prioridade (`ALTA` primeiro) acontece numa cópia criada dentro do `listar()`.
+
 ## Esqueleto de classes
+
+```java
+public enum Prioridade {
+    BAIXA, MEDIA, ALTA
+}
+```
 
 ```java
 public class Tarefa {
     private int id;
     private String descricao;
     private boolean concluida;
+    private Prioridade prioridade;
 
     public Tarefa(int id, String descricao) {
     }
@@ -65,6 +88,12 @@ public class Tarefa {
     // getters e setters
 
     public void setDescricao(String novaDescricao) {
+    }
+
+    public void setPrioridade(Prioridade novaPrioridade) {
+    }
+
+    public Prioridade getPrioridade() {
     }
 }
 ```
@@ -89,7 +118,13 @@ public class GerenciadorTarefas {
     public boolean remover(int id) {
     }
 
+    public boolean reabrir(int id) {
+    }
+
     public boolean editarDescricao(int id, String novaDescricao) {
+    }
+
+    public boolean editarPrioridade(int id, Prioridade novaPrioridade) {
     }
 }
 ```
@@ -100,6 +135,9 @@ public class GerenciadorTarefas {
 - **Dia 2:** Prática de `try/catch` com `InputMismatchException` e `IndexOutOfBoundsException`.
 - **Dia 3:** Definição formal do escopo da MVP e decisões de design das classes principais.
 - **Dia 4:** Implementação da edição de descrição de tarefa (`setDescricao` na `Tarefa`, `editarDescricao` no `GerenciadorTarefas`, novo case no menu da `Main`), com validação rejeitando descrição vazia/em branco via `IllegalArgumentException`. Escopo do doc atualizado e feature commitada e enviada ao GitHub (`99b07e9`).
+- **Pós-MVP — reabertura:** `reabrir()` na `Tarefa` e `reabrir(id)` no `GerenciadorTarefas`, para desfazer a conclusão. A reabertura entrou como opção 6 do menu, e "Sair" passou para a opção 7 (`80a5f79`).
+- **Pós-MVP — constantes do menu:** a opção de sair e o total de opções viraram as constantes `SAIR` e `TOTAL_OPCOES`, para que a renumeração do menu não quebre o `while` nem a mensagem do `default` (`8e0652e`).
+- **Pós-MVP — prioridade:** campo `prioridade` na `Tarefa` (padrão `MEDIA`), `editarPrioridade` no `GerenciadorTarefas`, submenu de 1 a 3 na opção 6 do menu e ordenação por prioridade no `listar()`, com `ALTA` primeiro (`64d9898`).
 
 ## Regra de disciplina
 
