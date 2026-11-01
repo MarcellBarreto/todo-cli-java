@@ -3,11 +3,13 @@ public class Tarefa {
     private int id;
     private String descricao;
     private boolean concluida;
+    private Prioridade prioridade;
 
     public Tarefa(int id, String descricao) {
         this.id = id;
         this.descricao = descricao;
         this.concluida = false;
+        this.prioridade = Prioridade.MEDIA;
     }
 
     public int getId() {
@@ -36,6 +38,14 @@ public class Tarefa {
 
     public void reabrir(){
         this.concluida = false;
+    }
+
+    public void setPrioridade(Prioridade novaPrioridade){
+        this.prioridade = novaPrioridade;
+    }
+
+    public Prioridade getPrioridade(){
+        return this.prioridade;
     }
 
 }

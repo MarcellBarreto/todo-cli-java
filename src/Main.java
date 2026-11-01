@@ -64,12 +64,46 @@ public class Main {
                             System.out.println("Tarefa não encontrada!");
                         }
                         break;
-                    case 6:{
+                    case 6:
                         System.out.println("Digite o ID da tarefa que deseja editar: ");
                         int idTarefa = sc.nextInt();
+                        Prioridade prioridade = Prioridade.MEDIA;
+                        int escolhaPrioridade = 0;
+                        while (escolhaPrioridade != 1 && escolhaPrioridade != 2 && escolhaPrioridade != 3) {
+                            try {
+                                System.out.println("\nDigite o numero da nova prioridade: ");
+                                System.out.println("1 - Baixa | 2 - Media | 3 - Alta");
+                                System.out.println("====================");
+                                escolhaPrioridade = sc.nextInt();
 
+                                switch (escolhaPrioridade) {
+                                    case 1:
+                                        prioridade = Prioridade.BAIXA;
+                                        break;
+                                    case 2:
+                                        prioridade = Prioridade.MEDIA;
+                                        break;
+                                    case 3:
+                                        prioridade = Prioridade.ALTA;
+                                        break;
+                                    default:
+                                        System.out.println("ERRO!!!");
+                                        System.out.println("DIGITE UMA OPCAO VALIDA (1 A 3).");
+                                        break;
+                                }
+
+
+                            } catch (InputMismatchException e) {
+                                System.out.println("ERRO!!! Você digitou algo que não é um número.");
+                                sc.nextLine();
+                            }
+                        }
+                        if (gerenciadorT.editarPrioridade(idTarefa, prioridade)) {
+                            System.out.println("Tarefa editada com sucesso!");
+                        } else {
+                            System.out.println("Tarefa não encontrada!");
+                        }
                         break;
-                    }
                     case 7:
                         System.out.println("Digite o ID da tarefa que será reaberta: ");
                         if (gerenciadorT.reabrir(sc.nextInt())) {

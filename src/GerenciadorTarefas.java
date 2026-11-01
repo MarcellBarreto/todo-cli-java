@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class GerenciadorTarefas {
     private ArrayList<Tarefa> tarefas;
@@ -18,8 +19,10 @@ public class GerenciadorTarefas {
         if (tarefas.isEmpty()) {
             System.out.println("Nenhuma tarefa encontrada!");
         } else {
-            for (Tarefa tarefa : tarefas) {
-                System.out.println("ID: " + tarefa.getId() + "| Descrição: " + tarefa.getDescricao() + "| Concluida: " + tarefa.isConcluida());
+            ArrayList<Tarefa> copia = new ArrayList<>(tarefas);
+            copia.sort(Comparator.comparing(Tarefa::getPrioridade).reversed());
+            for (Tarefa tarefa : copia) {
+                System.out.println("ID: " + tarefa.getId() + "| Descrição: " + tarefa.getDescricao() + "| Concluida: " + tarefa.isConcluida() + "| Prioridade: " + tarefa.getPrioridade());
             }
         }
     }
@@ -58,6 +61,16 @@ public class GerenciadorTarefas {
         for (Tarefa tarefa : tarefas) {
             if (tarefa.getId() == id) {
                 tarefa.setDescricao(novaDescricao);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean editarPrioridade(int id, Prioridade novaPrioridade) {
+        for (Tarefa tarefa : tarefas) {
+            if (tarefa.getId() == id) {
+                tarefa.setPrioridade(novaPrioridade);
                 return true;
             }
         }
