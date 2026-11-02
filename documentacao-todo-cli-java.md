@@ -21,6 +21,7 @@ Esse é o ponto de partida de uma visão maior (ver seção "Visão de longo pra
 - Edição de tarefas já criadas
 - Reabrir tarefa concluída
 - Prioridade da tarefa (BAIXA, MEDIA, ALTA), com listagem ordenada por prioridade
+- Listagem por estado: todas, abertas ou concluídas
 
 ## Fora de escopo (por enquanto)
 
@@ -29,13 +30,12 @@ Esse é o ponto de partida de uma visão maior (ver seção "Visão de longo pra
 - Categorias
 - Data de vencimento
 - Visão semanal / calendário
-- Sessão separada para tarefas concluídas
 
 ## Estrutura de classes
 
 - **`Tarefa`** — atributos: `id` (int), `descricao` (String), `concluida` (boolean), `prioridade` (`Prioridade`)
 - **`Prioridade`** — `enum` com `BAIXA`, `MEDIA` e `ALTA`, em arquivo próprio, pois `Main` e `Tarefa` o utilizam
-- **`GerenciadorTarefas`** — encapsula a `ArrayList<Tarefa>` e os métodos de adicionar, remover, marcar como concluída, reabrir, editar descrição, editar prioridade e listar
+- **`GerenciadorTarefas`** — encapsula a `ArrayList<Tarefa>` e os métodos de adicionar, remover, marcar como concluída, reabrir, editar descrição, editar prioridade e listar (todas, abertas e concluídas)
 - **`Main`** — apenas o loop de menu, a leitura de input via `Scanner` e a conversão do número digitado para `Prioridade`
 
 ## Decisões de design (Dia 3)
@@ -112,6 +112,12 @@ public class GerenciadorTarefas {
     public void listar() {
     }
 
+    public void listarAbertas() {
+    }
+
+    public void listarConcluidas() {
+    }
+
     public boolean marcarConcluida(int id) {
     }
 
@@ -138,6 +144,7 @@ public class GerenciadorTarefas {
 - **Pós-MVP — reabertura:** `reabrir()` na `Tarefa` e `reabrir(id)` no `GerenciadorTarefas`, para desfazer a conclusão. A reabertura entrou como opção 6 do menu, e "Sair" passou para a opção 7 (`80a5f79`).
 - **Pós-MVP — constantes do menu:** a opção de sair e o total de opções viraram as constantes `SAIR` e `TOTAL_OPCOES`, para que a renumeração do menu não quebre o `while` nem a mensagem do `default` (`8e0652e`).
 - **Pós-MVP — prioridade:** campo `prioridade` na `Tarefa` (padrão `MEDIA`), `editarPrioridade` no `GerenciadorTarefas`, submenu de 1 a 3 na opção 6 do menu e ordenação por prioridade no `listar()`, com `ALTA` primeiro (`64d9898`).
+- **Pós-MVP — listagem por estado:** a opção 2 do menu virou um submenu com três caminhos: todas (`listar`), abertas (`listarAbertas`, ordenadas por prioridade) e concluídas (`listarConcluidas`, na ordem de cadastro). Os filtros montam listas novas, e a impressão é um método privado compartilhado (`21f0a07`).
 
 ## Regra de disciplina
 
