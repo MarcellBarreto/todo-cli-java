@@ -21,9 +21,42 @@ public class GerenciadorTarefas {
         } else {
             ArrayList<Tarefa> copia = new ArrayList<>(tarefas);
             copia.sort(Comparator.comparing(Tarefa::getPrioridade).reversed());
-            for (Tarefa tarefa : copia) {
-                System.out.println("ID: " + tarefa.getId() + "| Descrição: " + tarefa.getDescricao() + "| Concluida: " + tarefa.isConcluida() + "| Prioridade: " + tarefa.getPrioridade());
+            impressao(copia);
+        }
+    }
+
+    public void listarAbertas(){
+        ArrayList<Tarefa> abertas = new ArrayList<>();
+        for (Tarefa tarefa : tarefas) {
+            if (!tarefa.isConcluida()){
+                abertas.add(tarefa);
             }
+        }
+        if (abertas.isEmpty()){
+            System.out.println("Você não tem tarefas abertas!");
+        } else  {
+            abertas.sort(Comparator.comparing(Tarefa::getPrioridade).reversed());
+            impressao(abertas);
+        }
+    }
+
+    public void listarConcluidas() {
+        ArrayList<Tarefa> concluidas = new ArrayList<>();
+        for (Tarefa tarefa : tarefas) {
+            if (tarefa.isConcluida()) {
+                concluidas.add(tarefa);
+            }
+        }
+        if (concluidas.isEmpty()) {
+            System.out.println("Você não tem tarefas concluidas!");
+        } else  {
+            impressao(concluidas);
+        }
+    }
+
+    private void impressao(ArrayList<Tarefa> copia) {
+        for (Tarefa tarefa : copia) {
+            System.out.println("ID: " + tarefa.getId() + "| Descrição: " + tarefa.getDescricao() + "| Concluida: " + tarefa.isConcluida() + "| Prioridade: " + tarefa.getPrioridade());
         }
     }
 

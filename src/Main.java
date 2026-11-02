@@ -33,7 +33,31 @@ public class Main {
                         gerenciadorT.adicionar(descricao);
                         break;
                     case 2:
-                        gerenciadorT.listar();
+                        int escolhaEstado = 0;
+                        while (escolhaEstado != 1 && escolhaEstado != 2 && escolhaEstado != 3) {
+                            try {
+                                System.out.println("Qual o estado da tarefa? ");
+                                System.out.println("1 - Todas | 2 - Abertas | 3 - Concluidas");
+                                System.out.println("====================");
+                                escolhaEstado =  sc.nextInt();
+
+                                switch (escolhaEstado) {
+                                    case 1:
+                                        gerenciadorT.listar();
+                                        break;
+                                    case 2:
+                                        gerenciadorT.listarAbertas();
+                                        break;
+                                    case 3:
+                                        gerenciadorT.listarConcluidas();
+                                        break;
+                                    default:
+                                        System.out.println("ERRO!!!");
+                                        System.out.println("DIGITE UMA OPCAO VALIDA (1 A 3).");
+                                        break;
+                                }
+                            } catch (InputMismatchException e)
+                        }
                         break;
                     case 3:
                         System.out.println("Digite o ID da tarefa que deseja remover: ");
