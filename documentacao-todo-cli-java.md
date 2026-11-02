@@ -145,6 +145,7 @@ public class GerenciadorTarefas {
 - **Pós-MVP — constantes do menu:** a opção de sair e o total de opções viraram as constantes `SAIR` e `TOTAL_OPCOES`, para que a renumeração do menu não quebre o `while` nem a mensagem do `default` (`8e0652e`).
 - **Pós-MVP — prioridade:** campo `prioridade` na `Tarefa` (padrão `MEDIA`), `editarPrioridade` no `GerenciadorTarefas`, submenu de 1 a 3 na opção 6 do menu e ordenação por prioridade no `listar()`, com `ALTA` primeiro (`64d9898`).
 - **Pós-MVP — listagem por estado:** a opção 2 do menu virou um submenu com três caminhos: todas (`listar`), abertas (`listarAbertas`, ordenadas por prioridade) e concluídas (`listarConcluidas`, na ordem de cadastro). Os filtros montam listas novas, e a impressão é um método privado compartilhado (`21f0a07`).
+- **Pós-MVP — submenu de edição:** a opção 5 do menu passou a abrir um submenu com "1 - Descrição" e "2 - Prioridade". O id é lido uma vez, antes do submenu, e a edição de prioridade repete a pergunta em entrada inválida. A opção de editar prioridade saiu do menu principal, e reabrir passou para a opção 6 (`7697c10`).
 
 ## Regra de disciplina
 
